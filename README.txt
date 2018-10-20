@@ -1,21 +1,57 @@
 # CSC_410_hash_breaker
 
-The makefile is set up to make two programs:
-* hash
+The makefile is set up to make four programs:
+* hashbrowns
 * mathews_seq
+* brown_seq
 
-hash returns the hash for a string given as a command line argument
+/***********************************************************************
+                                mathews_seq 
+***********************************************************************/
 
-usage: ./hash cba
-
-mathews_seq does an exhaustive search to find the string that produced
+does an exhaustive search to find the string that produced
 a specific hash
 
 usage: ./mathews_seq <hash>
 
-The two can be used in conjunction by calling:
+to compile: 
+	gcc $(CFLAGS) -o mathews_seq hashfun.o mathews_seq.c -lm
 
-./mathews_seq $(./hash cba)
+
+
+/***********************************************************************
+                                brown_seq
+***********************************************************************/
+
+usage:
+    ./brown_seq $(./hashbrown zab) zab
+
+to compile:
+	g++ $(CFLAGS) -o brown_seq hashfun.o brown_seq.cpp -lm
+
+
+
+/***********************************************************************
+                                hashbrowns
+***********************************************************************/
+
+returns the hash for a string given as a command line argument
+
+usage: ./hashbrowns <string>
+
+to compile:
+	gcc $(CFLAGS) -o hashbrowns hashfun.o hashbrowns.c
+    
+
+
+/***********************************************************************
+                                combinations
+***********************************************************************/
+Use hashbrowns with the sequential solvers as follows
+
+./mathews_seq $(./hashbrowns cba)
+./brown_seq $(./hashbrowns cba) cba
 
 This will create the hash for "cba" and pass that as the argument to 
-mathews_seq which will then try to determine the corresponding string
+the solver which will then try to determine the corresponding string
+
