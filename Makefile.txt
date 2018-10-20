@@ -1,0 +1,12 @@
+CFLAGS = -Wall -Wextra
+
+all: brown_seq hashbrowns
+
+brown_seq: brown_seq.cpp
+	g++ $(CFLAGS) -o brown_seq hashfun.o brown_seq.cpp -lm
+	
+hashbrowns: hashbrowns.c
+	gcc $(CFLAGS) -o hashbrowns hashfun.o hashbrowns.cpp
+
+clean:
+	rm brown_seq hashbrowns
