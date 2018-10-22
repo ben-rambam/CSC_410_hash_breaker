@@ -37,7 +37,7 @@ void permutate(char perm[],int pos,unsigned long long code,int range )
         {
             printf("\nfound matching string:%s\n",perm);
             //need to find a way to exit early if found...recursion likely not the way to go.
-            //exit(1); //not a clean to exit but obv works.
+            exit(1);    //not a clean to exit but obv works.
         }
     }
 
