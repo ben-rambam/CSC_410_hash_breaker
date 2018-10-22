@@ -86,7 +86,8 @@ int main(int argc, char *argv[])
 
     if(argc==3)
     {
-        code = atoi(argv[1]);
+        //this properly converts hash tu unsigned long long. prev code was causing int overflows.
+        code = strtoul(argv[1],&ullptr,10); 
         range =atoi(argv[2]);      
     } 
 
