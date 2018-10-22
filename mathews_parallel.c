@@ -9,11 +9,25 @@ const unsigned numUseable = 26;
 const char useable[] = "abcdefghijklmnopqrstuvwxyz";
 unsigned long long hash(char *str);
 
-void makeStr( char* str, unsigned numChars, unsigned index)
+void makeStr( char* str, unsigned index)
 {
+    unsigned numChars = 0;
+    for( numChars = 1; numChars < 16; numChars++)
+    {
+        unsigned long long temp = pow(numUseable, numChars);
+        if( index >= temp)
+        {
+            index -= temp;
+        }
+        else
+            break;
+    }
+
     if( index >= pow(numUseable, numChars) )
     {
+        
         printf("Error: Index too big\n");
+        printf("index: %d numChars: %d", index, numChars);
         str = "";
         return;
     }
@@ -39,42 +53,37 @@ int main( int argc, char* argv[])
         return 1;
     }
     unsigned long long inputHash = atoll(argv[1]);
-    const unsigned maxSize = 16;
+    const unsigned maxSize = 10;
     char solutionStr[maxSize];
     unsigned long long solutionHash = 0;
 
-    for( unsigned numChars = 1; numChars <= maxSize; numChars++)
+    unsigned long long maxIndex = pow(numUseable, maxSize);
+    unsigned long long globIndex = 0;
+    #pragma omp parallel
     {
-        unsigned maxIndex = pow(numUseable, numChars);
-        long long globIndex = -1;
-        #pragma omp parallel
+        unsigned long long tempHash = 0;
+        char tempStr[maxSize];
+        unsigned long long myIndex = 0;
+        #pragma omp critical
         {
-            unsigned long long tempHash = 0;
-            char tempStr[maxSize];
-            long long myIndex = 0;
+            myIndex = globIndex++;
+        }
+        while( solutionHash == 0 && myIndex < maxIndex)
+        {
+            makeStr(tempStr, myIndex);
+            tempHash = hash(tempStr);
+            if( tempHash == inputHash )
+            {
+                solutionHash = tempHash;
+                strcpy(solutionStr, tempStr);
+            }
             #pragma omp critical
             {
                 myIndex = ++globIndex;
             }
-            while( solutionHash == 0 && myIndex < maxIndex)
-            {
-                makeStr(tempStr, numChars, myIndex);
-                tempHash = hash(tempStr);
-                if( tempHash == inputHash )
-                {
-                    solutionHash = tempHash;
-                    strcpy(solutionStr, tempStr);
-                }
-                #pragma omp critical
-                {
-                    myIndex = ++globIndex;
-                }
-            }
         }
-        if( solutionHash == inputHash )
-            break;
     }
-
+    
     printf("String: %s  Hash: %lld\n", solutionStr, hash(solutionStr));
 
 	return 0;
