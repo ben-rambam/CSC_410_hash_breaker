@@ -8,7 +8,7 @@
 //alphabet to use
 const char ALPHABET[] = "abcdefghijklmnopqrstuvwxyz";
 unsigned long long hash(char *str);
-const int STRING_LENGTH = 26;
+const int STRING_LENGTH = strlen(ALPHABET);
 
 /*
 ************************************************************************
@@ -27,7 +27,7 @@ const int STRING_LENGTH = 26;
 */
 
 //void permutateIterative(char perm[],int pos, const char *str,unsigned long long code,int range )
-void permutateIterative(char perm[],int pos,unsigned long long code,int range )
+void permutate(char perm[],int pos,unsigned long long code,int range )
 {
     if (pos ==range)
     {
@@ -47,7 +47,7 @@ void permutateIterative(char perm[],int pos,unsigned long long code,int range )
         {
             //create substring
             perm[pos] = *(ALPHABET+i);
-            permutateIterative(perm, pos+1,code,range);
+            permutate(perm, pos+1,code,range);
         }
     }
 }
@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
     //attempts to time just the permutation function.
     clock_t t;          
     t=clock();
-    permutateIterative(subarray,0,code,range);
+    permutate(subarray,0,code,range);
     t=clock()-t;
 
     printf("\n[*]Exiting function permutateIterative\n");
