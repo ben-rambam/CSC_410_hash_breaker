@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
     
     unsigned long long code;    //hash to find
     int range;                  //number of characters used for string used to create hash.
-
+    char *ullptr=NULL;
     if(argc==3)
     {
         //this properly converts hash tu unsigned long long. prev code was causing int overflows.
