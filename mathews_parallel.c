@@ -27,7 +27,7 @@ void makeStr( char* str, unsigned long long index)
     {
         
         printf("Error: Index too big\n");
-        printf("index: %lld numChars: %d", index, numChars);
+        printf("index: %llu numChars: %d", index, numChars);
         str = "";
         return;
     }
@@ -71,7 +71,7 @@ int main( int argc, char* argv[])
         upperBound += pow(numUseable, i);
     }
     #ifdef DEBUG
-    printf("upperBound: %lld \n", upperBound);
+    printf("upperBound: %llu \n", upperBound);
     #endif
     makeStr(solutionStr, upperBound-1);
     #ifdef DEBUG
@@ -79,11 +79,11 @@ int main( int argc, char* argv[])
     #endif
     unsigned long long upperHash = hash(solutionStr);
     #ifdef DEBUG
-    printf("upperHash: %lld \n", upperHash);
+    printf("upperHash: %llu \n", upperHash);
     #endif
     unsigned long long lowerBound = 0;
     #ifdef DEBUG
-    printf("lowerBound: %lld \n", lowerBound);
+    printf("lowerBound: %llu \n", lowerBound);
     #endif
     makeStr(solutionStr, lowerBound);
     #ifdef DEBUG
@@ -91,7 +91,7 @@ int main( int argc, char* argv[])
     #endif
     unsigned long long lowerHash = hash(solutionStr);
     #ifdef DEBUG
-    printf("lowerHash: %lld \n", lowerHash);
+    printf("lowerHash: %llu \n", lowerHash);
     #endif
     unsigned long long interval;
 
@@ -106,7 +106,7 @@ int main( int argc, char* argv[])
         {
             myIndex = lowerBound + (globIndex++*interval);
             #ifdef DEBUG
-            printf("myIndex: %lld \n", myIndex);
+            printf("myIndex: %llu \n", myIndex);
             #endif
         }
         while( solutionHash == 0 && lowerBound < upperBound)
@@ -148,7 +148,7 @@ int main( int argc, char* argv[])
         printf("Couldn't find string in range\n");
         return 1;
     }
-    printf("String: %s  Hash: %lld\n", solutionStr, hash(solutionStr));
+    printf("String: %s  Hash: %llu\n", solutionStr, hash(solutionStr));
 
 	return 0;
 }
