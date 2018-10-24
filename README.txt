@@ -18,6 +18,14 @@ to compile:
 	gcc $(CFLAGS) -o mathews_seq hashfun.o mathews_seq.c -lm
 
 
+/***********************************************************************
+                                mathews_parallel
+***********************************************************************/
+
+usage: ./mathews_parallel <hash>
+
+to compile: 
+        gcc $(CFLAGS) -o mathews_parallel hashfun.o mathews_parallel.c -lm -fopenmp
 
 /***********************************************************************
                                 brown_seq
