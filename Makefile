@@ -1,6 +1,6 @@
 CFLAGS = -Wall -Wextra
 
-all: mathews_seq brown_seq hashbrowns ventura_seq mathews_parallel ventura_parallel
+all: mathews_seq brown_seq hashbrowns ventura_seq mathews_parallel ventura_parallel landon_seq landon_parallel
 
 debug: CFLAGS += -DDEBUG -g
 debug: all
@@ -20,8 +20,14 @@ ventura_seq :
 ventura_parallel: 
 	gcc $(CFLAGS) -o ventura_parallel ventura_pthreads.c hashfun.o -lpthread
 
+landon_seq :
+	gcc $(CFLAGS) -o landon_seq landonf_seq.c hashfun.o
+
+landon_parallel :
+	gcc $(CFLAGS) -o landon_parallel landonf_3char_par.c hashfun.o -lpthread
+
 hashbrowns: hashbrowns.c
 	gcc $(CFLAGS) -o hashbrowns hashfun.o hashbrowns.c
 
 clean:
-	rm mathews_seq brown_seq hashbrowns ventura_seq mathews_parallel ventura_parallel
+	rm mathews_seq brown_seq hashbrowns ventura_seq mathews_parallel ventura_parallel landon_seq landon_parallel
