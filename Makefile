@@ -1,6 +1,6 @@
 CFLAGS = -Wall -Wextra
 
-all: mathews_seq brown_seq hashbrowns ventura_seq mathews_parallel
+all: mathews_seq brown_seq hashbrowns ventura_seq mathews_parallel ventura_parallel
 
 debug: CFLAGS += -DDEBUG -g
 debug: all
