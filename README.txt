@@ -17,6 +17,15 @@ usage: ./mathews_seq <hash>
 to compile: 
 	gcc $(CFLAGS) -o mathews_seq hashfun.o mathews_seq.c -lm
 
+/***********************************************************************
+                                mathews_parallel
+***********************************************************************/
+
+usage: ./mathews_parallel <hash>
+
+to compile: 
+        gcc $(CFLAGS) -o mathews_parallel hashfun.o mathews_parallel.c -lm -fopenmp
+
 
 
 /***********************************************************************
@@ -57,6 +66,19 @@ Usage: ./ventura_seq <hash to find> <number of characters used to create hash
 ./ventura_seq 193485963 3
 [*]calling permutation on string:"abcdefghijklmnopqrstuvwxyz" of length: 26
 [*]Provided hash: 193485963, range of characters to be used:3
+
+To compile:
+	gcc $(CFLAGS) -o ventura_seq ventura_seq.c hashfun.o
+
+
+/***********************************************************************
+                                ventura_parallel
+***********************************************************************/
+Usage: Same as sequential.
+
+To compile:
+	gcc $(CFLAGS) -o ventura_pthreads ventura_pthreads.c hashfun.o -lpthread
+
 
 /***********************************************************************
                                 hashbrowns
