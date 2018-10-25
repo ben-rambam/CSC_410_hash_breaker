@@ -1,0 +1,27 @@
+Originally, I started thinking a recursive implementation would be a
+natural approach, but then I realized that the recursion wasn't
+necessary. Also, looking ahead to the need to parallelize, I wrote my
+sequential version with a function that could be passed an index and
+would return a string where increasing the index increased the string
+alphabetically and also in length.
+
+The forethought in the sequential stage made the parallel implementation
+pretty straightforward. I had to switch from using for-loops to using
+while-loops in order to allow an early exit with OMP, but aside from
+that, the direct implementation was simple.
+
+At this point, I realized that the hashing function was monotonicaly
+increasing with increasing string length and alphabetic order. It wasn't
+enough information to back-calculate the hashing functin, but it was
+enough that I could switch from a linear search to a binary search.
+Parallelizing the binary search was interesting and required more
+synchronization than I like because I needed two barriers. I've thought
+about a way to parallelize it asynchronously, but haven't had time to
+implement it yet. The current, synchronous version runs very fast. It
+operates by splitting the region of indices to be searched into T+1
+sections where T is the number of threads. The threads wait at a barrier
+until all have finnished and then a single thread calculates the new
+interval region and resets the index for the other threads. In this way,
+the hash for an 11-character string can be solved in about 90-ms with 24
+threads.
+
